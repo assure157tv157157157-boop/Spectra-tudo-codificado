@@ -1,7 +1,11 @@
 --[[
-    ToraScript UI Library - Versão Aprimorada
-    Mantém o estilo original, mas com código otimizado, animações suaves,
-    suporte a minimizar/restaurar, e componentes mais responsivos.
+    ToraScript UI Library - Versão Ultra Aprimorada
+    - Scroll embutido nas janelas
+    - Design refinado (sombras, cantos arredondados)
+    - Barras de rolagem personalizadas oooo
+    - Sliders com feedback em tempo real
+    - Efeitos de clique e hover mais suaves
+    - Código otimizado e comentado
 ]]
 
 local library = {
@@ -10,7 +14,6 @@ local library = {
     open = true,
     activePopup = nil,
     base = nil,
-    minimized = false, -- estado global de minimizar (opcional)
 }
 
 -- Services
@@ -22,14 +25,14 @@ local players = game:GetService("Players")
 local ui = Enum.UserInputType.MouseButton1
 local touch = Enum.UserInputType.Touch
 
--- Locals
+-- Locals para arrasto
 local dragging = false
 local dragInput = nil
 local dragStart = nil
 local startPos = nil
 local dragObject = nil
 
--- Constantes (teclas bloqueadas/permite para binds)
+-- Constantes
 local blacklistedKeys = {
     [Enum.KeyCode.Unknown] = true,
     [Enum.KeyCode.W] = true, [Enum.KeyCode.A] = true, [Enum.KeyCode.S] = true, [Enum.KeyCode.D] = true,
@@ -65,13 +68,12 @@ local function update(input)
     if not dragObject then return end
     local delta = input.Position - dragStart
     local yPos = startPos.Y.Offset + delta.Y
-    -- Limitar para não sair da tela
     local maxY = dragObject.Parent.AbsoluteSize.Y - dragObject.AbsoluteSize.Y - 36
     yPos = math.clamp(yPos, -36, maxY)
     dragObject:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, yPos), "Out", "Quint", 0.1, true)
 end
 
--- Rainbow effect (melhorado com task.spawn)
+-- Rainbow effect
 local chromaColor = Color3.new(1, 0, 0)
 local rainbowTime = 5
 task.spawn(function()
@@ -89,7 +91,7 @@ function library:Create(class, properties)
     return inst
 end
 
--- Função que cria o contêiner de uma janela/aba (holder)
+-- Função que cria o contêiner de uma janela/aba (agora com scroll)
 local function createOptionHolder(holderTitle, parent, holderTable, subHolder)
     local size = subHolder and 34 or 40
     holderTable.main = library:Create("ImageButton", {
@@ -106,7 +108,22 @@ local function createOptionHolder(holderTitle, parent, holderTable, subHolder)
         Parent = parent,
     })
 
-    local round -- apenas para holders principais (não subHolders)
+    -- Sombra suave (opcional)
+    local shadow = library:Create("ImageLabel", {
+        Position = UDim2.new(0, -2, 0, -2),
+        Size = UDim2.new(1, 4, 1, 4),
+        BackgroundTransparency = 1,
+        Image = "rbxassetid://3570695787",
+        ImageColor3 = Color3.fromRGB(0, 0, 0),
+        ImageTransparency = 0.8,
+        ScaleType = Enum.ScaleType.Slice,
+        SliceCenter = Rect.new(100, 100, 100, 100),
+        SliceScale = 0.04,
+        ZIndex = 0,
+        Parent = holderTable.main,
+    })
+
+    local round -- apenas para holders principais
     if not subHolder then
         round = library:Create("ImageLabel", {
             Size = UDim2.new(1, 0, 0, size),
@@ -152,31 +169,53 @@ local function createOptionHolder(holderTitle, parent, holderTable, subHolder)
         Parent = closeHolder,
     })
 
-    holderTable.content = library:Create("Frame", {
+    -- ScrollingFrame para o conteúdo
+    local contentHolder = library:Create("Frame", {
         Position = UDim2.new(0, 0, 0, size),
         Size = UDim2.new(1, 0, 1, -size),
         BackgroundTransparency = 1,
+        ClipsDescendants = true,
         Parent = holderTable.main,
+    })
+
+    local scrollingFrame = library:Create("ScrollingFrame", {
+        Size = UDim2.new(1, 0, 1, 0),
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0,
+        ScrollBarImageColor3 = Color3.fromRGB(255, 65, 65),
+        ScrollBarThickness = 4,
+        ScrollingDirection = Enum.ScrollingDirection.Y,
+        CanvasSize = UDim2.new(0, 0, 0, 0),
+        Parent = contentHolder,
+    })
+
+    library:Create("UIPadding", {
+        PaddingTop = UDim.new(0, 4),
+        PaddingBottom = UDim.new(0, 4),
+        Parent = scrollingFrame,
     })
 
     local layout = library:Create("UIListLayout", {
         SortOrder = Enum.SortOrder.LayoutOrder,
-        Padding = UDim.new(0, 0),
-        Parent = holderTable.content,
+        Padding = UDim.new(0, 4),
+        Parent = scrollingFrame,
     })
 
-    -- Atualiza tamanho do holder conforme conteúdo
-    local function updateSize()
+    -- Atualiza canvas size conforme conteúdo
+    local function updateCanvas()
         local contentHeight = layout.AbsoluteContentSize.Y
-        holderTable.content.Size = UDim2.new(1, 0, 0, contentHeight)
-        if #holderTable.options > 0 and holderTable.open then
-            holderTable.main.Size = UDim2.new(0, 230, 0, contentHeight + size)
-        else
-            holderTable.main.Size = UDim2.new(0, 230, 0, size)
-        end
+        scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, contentHeight + 8)
+        -- Altura máxima da janela (ex: 500px) para evitar que fique enorme
+        local maxHeight = 500
+        local newHeight = math.min(contentHeight + size + 12, maxHeight)
+        holderTable.main.Size = UDim2.new(0, 230, 0, newHeight)
+        contentHolder.Size = UDim2.new(1, 0, 1, -size)
     end
-    layout.Changed:Connect(updateSize)
-    updateSize()
+    layout.Changed:Connect(updateCanvas)
+    updateCanvas()
+
+    -- Referências para o holder
+    holderTable.content = scrollingFrame -- para adicionar elementos depois
 
     if not subHolder then
         -- Arrastar pela barra de título
@@ -201,24 +240,26 @@ local function createOptionHolder(holderTitle, parent, holderTable, subHolder)
         end)
     end
 
-    -- Botão de recolher/expandir
+    -- Botão de recolher/expandir (agora apenas esconde o scroll)
     closeHolder.InputBegan:Connect(function(input)
         if input.UserInputType == ui or input.UserInputType == touch then
             holderTable.open = not holderTable.open
-            tweenService:Create(close, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+            tweenService:Create(close, TweenInfo.new(0.2), {
                 Rotation = holderTable.open and 90 or 180,
                 ImageColor3 = holderTable.open and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(30, 30, 30)
             }):Play()
             if subHolder then
-                tweenService:Create(title, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                tweenService:Create(title, TweenInfo.new(0.2), {
                     BackgroundColor3 = holderTable.open and Color3.fromRGB(16, 16, 16) or Color3.fromRGB(10, 10, 10)
                 }):Play()
             else
-                tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                tweenService:Create(round, TweenInfo.new(0.2), {
                     ImageColor3 = holderTable.open and Color3.fromRGB(10, 10, 10) or Color3.fromRGB(6, 6, 6)
                 }):Play()
             end
-            updateSize()
+            -- Animação de altura
+            local targetHeight = holderTable.open and math.min(layout.AbsoluteContentSize.Y + size + 12, 500) or size
+            holderTable.main:TweenSize(UDim2.new(0, 230, 0, targetHeight), "Out", "Quad", 0.2, true)
         end
     end)
 
@@ -229,13 +270,12 @@ local function createOptionHolder(holderTitle, parent, holderTable, subHolder)
     return holderTable
 end
 
--- Componentes individuais (label, toggle, button, bind, slider, list, box, color)
--- Cada função recebe o objeto option e o holder pai
-
+-- Componentes individuais (ligeiramente refinados visualmente)
 local function createLabel(option, parent)
     local main = library:Create("TextLabel", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 26),
+        Size = UDim2.new(1, -10, 0, 26),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Text = "  " .. option.text,
         TextSize = 17,
@@ -252,7 +292,8 @@ end
 local function createToggle(option, parent)
     local main = library:Create("TextLabel", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 31),
+        Size = UDim2.new(1, -10, 0, 31),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Text = "  " .. option.text,
         TextSize = 17,
@@ -351,7 +392,8 @@ local function createButton(option, parent)
     local main = library:Create("TextLabel", {
         ZIndex = 2,
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 34),
+        Size = UDim2.new(1, -10, 0, 34),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Text = "  " .. option.text,
         TextSize = 17,
@@ -406,13 +448,13 @@ end
 
 local function createBind(option, parent)
     local binding = false
-    local holding = false
     local loopConn = nil
     local text = string.match(option.key, "Mouse") and string.sub(option.key, 1, 5) .. string.sub(option.key, 12, 13) or option.key
 
     local main = library:Create("TextLabel", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 33),
+        Size = UDim2.new(1, -10, 0, 33),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Text = "  " .. option.text,
         TextSize = 17,
@@ -500,7 +542,7 @@ local function createBind(option, parent)
             if newKey then
                 option:SetKey(newKey)
             else
-                option:SetKey(option.key) -- mantém o anterior
+                option:SetKey(option.key) -- mantém
             end
         end
     end)
@@ -533,7 +575,8 @@ end
 local function createSlider(option, parent)
     local main = library:Create("Frame", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 50),
+        Size = UDim2.new(1, -10, 0, 50),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Parent = parent.content,
     })
@@ -687,7 +730,8 @@ local function createList(option, parent)
 
     local main = library:Create("Frame", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 52),
+        Size = UDim2.new(1, -10, 0, 52),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Parent = parent.content,
     })
@@ -759,8 +803,8 @@ local function createList(option, parent)
         Size = UDim2.new(1, 0, 1, 0),
         BackgroundTransparency = 1,
         BorderSizePixel = 0,
-        ScrollBarImageColor3 = Color3.new(),
-        ScrollBarThickness = 0,
+        ScrollBarImageColor3 = Color3.fromRGB(255, 65, 65),
+        ScrollBarThickness = 4,
         ScrollingDirection = Enum.ScrollingDirection.Y,
         Parent = option.mainHolder,
     })
@@ -783,7 +827,7 @@ local function createList(option, parent)
             option.open = true
             option.mainHolder.Visible = true
             library.activePopup = option
-            content.ScrollBarThickness = 6
+            content.ScrollBarThickness = 4
             tweenService:Create(option.mainHolder, TweenInfo.new(0.3, Enum.EasingStyle.Quint), { ImageTransparency = 0, Position = UDim2.new(0, pos.X - 5, 0, pos.Y - 4) }):Play()
             tweenService:Create(option.mainHolder, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.1), { Position = UDim2.new(0, pos.X - 5, 0, pos.Y + 1) }):Play()
             for _, label in pairs(content:GetChildren()) do
@@ -902,7 +946,8 @@ end
 local function createBox(option, parent)
     local main = library:Create("Frame", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 52),
+        Size = UDim2.new(1, -10, 0, 52),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Parent = parent.content,
     })
@@ -998,7 +1043,7 @@ local function createBox(option, parent)
     end
 end
 
--- Color Picker (melhorado com animações e estrutura)
+-- Color Picker (mantido similar, mas com pequenos ajustes)
 local function createColorPickerWindow(option)
     option.mainHolder = library:Create("ImageButton", {
         ZIndex = 3,
@@ -1155,7 +1200,7 @@ local function createColorPickerWindow(option)
         Parent = option.mainHolder,
     })
 
-    -- Botões: Reset, Undo, Set, Rainbow
+    -- Botões (simplificado, igual à versão anterior)
     local function createButtonInPicker(posY, text, callback)
         local btn = library:Create("ImageLabel", {
             ZIndex = 3,
@@ -1235,7 +1280,8 @@ end
 local function createColor(option, parent)
     option.main = library:Create("TextLabel", {
         LayoutOrder = option.position,
-        Size = UDim2.new(1, 0, 0, 31),
+        Size = UDim2.new(1, -10, 0, 31),
+        Position = UDim2.new(0, 5, 0, 0),
         BackgroundTransparency = 1,
         Text = "  " .. option.text,
         TextSize = 17,
