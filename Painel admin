@@ -318,7 +318,7 @@ local Actions = {
 --------------------------------------------------
 local Window = WindUI:CreateWindow({
     Title = "spectra admin",
-    Icon = "rbxassetid://84228153855933",
+    Icon = "rbxassetid://111496334196",
     Author = "by spectra estúdios",
     Folder = "spectra admin",
     Size = UDim2.fromOffset(550, 300),
@@ -328,7 +328,7 @@ local Window = WindUI:CreateWindow({
     HasOutline = false,
     HideSearchBar = true,
     ScrollBarEnabled = false,
-    Background = "rbxassetid://82282255582538",
+    Background = "rbxassetid://991372550501",
     BackgroundImageTransparency = 0.10,
     User = {
         Enabled = true,
@@ -337,7 +337,7 @@ local Window = WindUI:CreateWindow({
 })
 
 Window:EditOpenButton({
-    Title = "Spectra admin ",
+    Title = " Spectra admin ",
     Icon = "monitor",
     CornerRadius = UDim.new(0, 6),
     StrokeThickness = 2,
