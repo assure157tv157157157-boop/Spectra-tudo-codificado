@@ -1,1 +1,80 @@
-:p
+--// Serviços
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+--// GUI principal
+local gui = Instance.new("ScreenGui")
+gui.Name = "SpectraMessage"
+gui.Parent = player:WaitForChild("PlayerGui")
+
+--// Fundo escuro
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 450, 0, 220)
+frame.Position = UDim2.new(0.5, -225, 0.5, -110)
+frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+-- borda vermelha
+local stroke = Instance.new("UIStroke")
+stroke.Color = Color3.fromRGB(255, 0, 0)
+stroke.Thickness = 2
+stroke.Parent = frame
+
+-- cantos arredondados
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+--// Título principal
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -20, 0, 100)
+title.Position = UDim2.new(0, 10, 0, 10)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(255, 50, 50)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.TextWrapped = true
+title.Text = "O Spectra vai atualizar amanhã provavelmente lá para as 7 da noite pq eu tenho escola mas eu acho q n"
+title.Parent = frame
+
+--// Texto menor
+local desc = Instance.new("TextLabel")
+desc.Size = UDim2.new(1, -20, 0, 60)
+desc.Position = UDim2.new(0, 10, 0, 110)
+desc.BackgroundTransparency = 1
+desc.TextColor3 = Color3.fromRGB(200, 200, 200)
+desc.TextScaled = true
+desc.Font = Enum.Font.Gotham
+desc.TextWrapped = true
+desc.Text = "Muito obrigado mesmo eu amo vcs eu amo essa comunidade de scripts muito obrigado por usa o spectra :p"
+desc.Parent = frame
+
+--// Botão de fechar
+local close = Instance.new("TextButton")
+close.Size = UDim2.new(0, 120, 0, 35)
+close.Position = UDim2.new(0.5, -60, 1, -45)
+close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+close.TextColor3 = Color3.fromRGB(255, 255, 255)
+close.Font = Enum.Font.GothamBold
+close.TextScaled = true
+close.Text = "FECHAR"
+close.Parent = frame
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0, 8)
+btnCorner.Parent = close
+
+-- efeito hover
+close.MouseEnter:Connect(function()
+	close.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+end)
+
+close.MouseLeave:Connect(function()
+	close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+end)
+
+-- função fechar
+close.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
