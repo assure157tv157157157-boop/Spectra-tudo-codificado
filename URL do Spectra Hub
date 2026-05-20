@@ -1,62 +1,305 @@
-local T =
-"h"
+--// eae meu nobre dboas//--
 
-local I =
-"tt"
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
 
-local O =
-"ps"
+pcall(function()
+	CoreGui:FindFirstChild("UltraRedUI"):Destroy()
+end)
 
-local B =
-"://"
+-- GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "UltraRedUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = CoreGui
 
-local A =
-"raw."
+-- Sombra externa (compacta)
+local Shadow = Instance.new("Frame")
+Shadow.Parent = ScreenGui
+Shadow.Size = UDim2.new(0, 420, 0, 360)  -- Reduzido
+Shadow.Position = UDim2.new(0.5, -210, 0.5, -180)
+Shadow.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Shadow.BackgroundTransparency = 0.65
+Shadow.BorderSizePixel = 0
+Instance.new("UICorner", Shadow).CornerRadius = UDim.new(0, 22)
 
-local C =
-"github"
+-- MAIN (compacto)
+local Main = Instance.new("Frame")
+Main.Parent = ScreenGui
+Main.Size = UDim2.new(0, 400, 0, 340)  -- Antes 460x400, agora 400x340
+Main.Position = UDim2.new(0.5, -200, 0.5, -170)
+Main.BackgroundColor3 = Color3.fromRGB(15,15,15)
+Main.BorderSizePixel = 0
 
-local D =
-"user"
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 20)
 
-local E =
-"content"
+-- Borda vermelha
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Parent = Main
+MainStroke.Color = Color3.fromRGB(255,40,40)
+MainStroke.Thickness = 1.5
+MainStroke.Transparency = 0.2
 
-local F =
-".com/"
+-- Gradiente escuro
+local MainGradient = Instance.new("UIGradient")
+MainGradient.Parent = Main
+MainGradient.Rotation = 35
+MainGradient.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(35,35,35)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(18,18,18)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(60,10,10))
+}
 
-local G =
-"assure157tv157157157-boop/"
+-- TOP BAR (compacta)
+local Top = Instance.new("Frame")
+Top.Parent = Main
+Top.Size = UDim2.new(1,0,0,44)
+Top.BackgroundColor3 = Color3.fromRGB(25,25,25)
+Top.BorderSizePixel = 0
 
-local H =
-"Spectra-tudo-codificado/"
+Instance.new("UICorner", Top).CornerRadius = UDim.new(0,20)
 
-local J =
-"refs/"
+-- Correção de canto
+local Fix = Instance.new("Frame")
+Fix.Parent = Top
+Fix.Size = UDim2.new(1,0,0,22)
+Fix.Position = UDim2.new(0,0,1,-22)
+Fix.BackgroundColor3 = Color3.fromRGB(25,25,25)
+Fix.BorderSizePixel = 0
 
-local K =
-"heads/"
+-- TITLE
+local Title = Instance.new("TextLabel")
+Title.Parent = Top
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0,16,0,0)
+Title.Size = UDim2.new(1,-70,1,0)
+Title.Font = Enum.Font.GothamBlack
+Title.Text = "Spectra hub"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.TextSize = 20
+Title.TextXAlignment = Enum.TextXAlignment.Left
 
-local L =
-"main/"
+-- Ícone Discord
+local DiscordIcon = Instance.new("ImageLabel")
+DiscordIcon.Parent = Top
+DiscordIcon.BackgroundTransparency = 1
+DiscordIcon.Size = UDim2.new(0, 22, 0, 22)
+DiscordIcon.Position = UDim2.new(1, -80, 0.5, -11)
+DiscordIcon.Image = "rbxassetid://134470447531765"
+DiscordIcon.ImageColor3 = Color3.fromRGB(255,255,255)
 
-local M =
-"obfuscated_script-1778219027020.lua.txt"
+-- CLOSE BUTTON (compacto)
+local Close = Instance.new("TextButton")
+Close.Parent = Top
+Close.Size = UDim2.new(0,30,0,30)
+Close.Position = UDim2.new(1,-40,0.5,-15)
+Close.BackgroundColor3 = Color3.fromRGB(180,20,20)
+Close.Text = "✕"
+Close.Font = Enum.Font.GothamBold
+Close.TextColor3 = Color3.fromRGB(255,255,255)
+Close.TextSize = 18
+Close.AutoButtonColor = false
 
-loadstring(game:HttpGet(
-T..
-I..
-O..
-B..
-A..
-C..
-D..
-E..
-F..
-G..
-H..
-J..
-K..
-L..
-M
-))()
+Instance.new("UICorner", Close).CornerRadius = UDim.new(1,0)
+
+local CloseStroke = Instance.new("UIStroke")
+CloseStroke.Parent = Close
+CloseStroke.Color = Color3.fromRGB(255,80,80)
+CloseStroke.Thickness = 1.5
+
+Close.MouseEnter:Connect(function()
+	TweenService:Create(Close, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(220,30,30)}):Play()
+end)
+Close.MouseLeave:Connect(function()
+	TweenService:Create(Close, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(180,20,20)}):Play()
+end)
+
+-- DESCRIPTION (compacta mas com texto completo)
+local Desc = Instance.new("TextLabel")
+Desc.Parent = Main
+Desc.BackgroundTransparency = 1
+Desc.Position = UDim2.new(0, 18, 0, 60)
+Desc.Size = UDim2.new(1, -36, 0, 180)  -- Altura ajustada para caber
+Desc.Font = Enum.Font.Gotham
+Desc.Text = [[O spectra está em manutenção agora mas você pode entrar na comunidade 😁
+
+Entra no servidor do Spectra e curte com a galera 🤝
+Faz amizades, converse com os membros, e participe da comunidade.
+
+🎁 Nessa atualização vai rolar sorteio de painel admin grátis.
+💡 Você também pode dar sugestões pro Spectra e ajudar o projeto a crescer.
+🛡️ E talvez até virar staff futuramente]]
+Desc.TextWrapped = true
+Desc.TextColor3 = Color3.fromRGB(210,210,210)
+Desc.TextSize = 14  -- Levemente menor para caber bem
+Desc.TextXAlignment = Enum.TextXAlignment.Left
+Desc.TextYAlignment = Enum.TextYAlignment.Top
+Desc.LineHeight = 1.15
+
+-- BOTÃO AZUL BEBÊ (compacto)
+local CopyButton = Instance.new("TextButton")
+CopyButton.Parent = Main
+CopyButton.Size = UDim2.new(0, 340, 0, 48)
+CopyButton.Position = UDim2.new(0.5, -170, 1, -58)
+CopyButton.BackgroundColor3 = Color3.fromRGB(135, 206, 250)
+CopyButton.Text = ""
+CopyButton.AutoButtonColor = false
+CopyButton.BorderSizePixel = 0
+
+Instance.new("UICorner", CopyButton).CornerRadius = UDim.new(0, 16)
+
+local ButtonStroke = Instance.new("UIStroke")
+ButtonStroke.Parent = CopyButton
+ButtonStroke.Color = Color3.fromRGB(255,255,255)
+ButtonStroke.Thickness = 1.2
+ButtonStroke.Transparency = 0.5
+
+local ButtonGradient = Instance.new("UIGradient")
+ButtonGradient.Parent = CopyButton
+ButtonGradient.Rotation = 90
+ButtonGradient.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(170, 220, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(120, 190, 240))
+}
+
+local IconBtn = Instance.new("ImageLabel")
+IconBtn.Parent = CopyButton
+IconBtn.BackgroundTransparency = 1
+IconBtn.Size = UDim2.new(0, 32, 0, 32)
+IconBtn.Position = UDim2.new(0, 12, 0.5, -16)
+IconBtn.Image = "rbxassetid://17758749575"
+IconBtn.ImageColor3 = Color3.fromRGB(255,255,255)
+
+local ButtonText = Instance.new("TextLabel")
+ButtonText.Parent = CopyButton
+ButtonText.BackgroundTransparency = 1
+ButtonText.Position = UDim2.new(0, 54, 0, 0)
+ButtonText.Size = UDim2.new(1, -54, 1, 0)
+ButtonText.Font = Enum.Font.GothamBold
+ButtonText.Text = "Discord Spectra"
+ButtonText.TextColor3 = Color3.fromRGB(20, 30, 50)
+ButtonText.TextSize = 19
+ButtonText.TextXAlignment = Enum.TextXAlignment.Left
+
+-- STATUS
+local Status = Instance.new("TextLabel")
+Status.Parent = Main
+Status.BackgroundTransparency = 1
+Status.Position = UDim2.new(0, 0, 1, -26)
+Status.Size = UDim2.new(1, 0, 0, 20)
+Status.Font = Enum.Font.GothamBold
+Status.Text = ""
+Status.TextColor3 = Color3.fromRGB(100, 255, 100)
+Status.TextSize = 13
+Status.TextXAlignment = Enum.TextXAlignment.Center
+
+-- ANIMAÇÕES DO BOTÃO
+CopyButton.MouseEnter:Connect(function()
+	TweenService:Create(CopyButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(155, 220, 255)}):Play()
+	TweenService:Create(ButtonStroke, TweenInfo.new(0.2), {Transparency = 0}):Play()
+end)
+
+CopyButton.MouseLeave:Connect(function()
+	TweenService:Create(CopyButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(135, 206, 250)}):Play()
+	TweenService:Create(ButtonStroke, TweenInfo.new(0.2), {Transparency = 0.5}):Play()
+end)
+
+-- CLIQUE
+CopyButton.MouseButton1Click:Connect(function()
+	local discordLink = "https://discord.gg/vsKDhkJf8D"
+	
+	if setclipboard then
+		setclipboard(discordLink)
+		
+		TweenService:Create(CopyButton, TweenInfo.new(0.07), {BackgroundColor3 = Color3.fromRGB(100, 180, 230)}):Play()
+		task.wait(0.07)
+		TweenService:Create(CopyButton, TweenInfo.new(0.1), {BackgroundColor3 = Color3.fromRGB(135, 206, 250)}):Play()
+		
+		Status.Text = "✓ Convite copiado!"
+		Status.TextColor3 = Color3.fromRGB(100, 255, 100)
+		
+		local originalStrokeColor = ButtonStroke.Color
+		TweenService:Create(ButtonStroke, TweenInfo.new(0.15), {Color = Color3.fromRGB(255,255,255)}):Play()
+		task.wait(0.2)
+		TweenService:Create(ButtonStroke, TweenInfo.new(0.15), {Color = originalStrokeColor}):Play()
+		
+		task.wait(2.5)
+		Status.Text = ""
+	else
+		Status.Text = "❌ Executor não suporta clipboard"
+		Status.TextColor3 = Color3.fromRGB(255,80,80)
+		task.wait(2.5)
+		Status.Text = ""
+	end
+end)
+
+-- FECHAR
+Close.MouseButton1Click:Connect(function()
+	TweenService:Create(Main, TweenInfo.new(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+		Size = UDim2.new(0,0,0,0),
+		Position = UDim2.new(0.5,0,0.5,0)
+	}):Play()
+	TweenService:Create(Shadow, TweenInfo.new(0.2), {BackgroundTransparency = 1}):Play()
+	task.wait(0.25)
+	ScreenGui:Destroy()
+end)
+
+-- DRAG SYSTEM
+local dragging = false
+local dragInput
+local dragStart
+local startPos
+
+local function update(input)
+	local delta = input.Position - dragStart
+	Main.Position = UDim2.new(
+		startPos.X.Scale,
+		startPos.X.Offset + delta.X,
+		startPos.Y.Scale,
+		startPos.Y.Offset + delta.Y
+	)
+	Shadow.Position = UDim2.new(
+		startPos.X.Scale,
+		startPos.X.Offset + delta.X - 5,
+		startPos.Y.Scale,
+		startPos.Y.Offset + delta.Y - 5
+	)
+end
+
+Top.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = Main.Position
+		
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+Top.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		update(input)
+	end
+end)
+
+-- ANIMAÇÃO DE ABERTURA (compacta)
+Main.Size = UDim2.new(0,0,0,0)
+Shadow.Size = UDim2.new(0,0,0,0)
+
+TweenService:Create(Shadow, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+	Size = UDim2.new(0,420,0,360)
+}):Play()
+TweenService:Create(Main, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+	Size = UDim2.new(0,400,0,340)
+}):Play()
