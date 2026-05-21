@@ -207,7 +207,7 @@ end)
 
 -- CLIQUE
 CopyButton.MouseButton1Click:Connect(function()
-	local discordLink = "https://discord.gg/vsKDhkJf8D"
+	local discordLink = "https://discord.gg/z6j8e5JXX"
 	
 	if setclipboard then
 		setclipboard(discordLink)
