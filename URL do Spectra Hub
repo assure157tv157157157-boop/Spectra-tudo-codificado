@@ -1,1 +1,45 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Desc = Instance.new("TextLabel")
+local Close = Instance.new("TextButton")
 
+ScreenGui.Parent = game:GetService("CoreGui")
+
+Frame.Parent = ScreenGui
+Frame.Size = UDim2.new(0, 400, 0, 200)
+Frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+Frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+Frame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+Frame.BorderSizePixel = 2
+
+Title.Parent = Frame
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "Spectra HUB"
+Title.TextColor3 = Color3.fromRGB(255, 0, 0)
+Title.TextScaled = true
+Title.Font = Enum.Font.GothamBold
+
+Close.Parent = Frame
+Close.Size = UDim2.new(0, 35, 0, 35)
+Close.Position = UDim2.new(1, -40, 0, 5)
+Close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+Close.Text = "X"
+Close.TextColor3 = Color3.fromRGB(255, 255, 255)
+Close.Font = Enum.Font.GothamBold
+Close.TextScaled = true
+
+Desc.Parent = Frame
+Desc.Size = UDim2.new(1, -20, 1, -60)
+Desc.Position = UDim2.new(0, 10, 0, 50)
+Desc.BackgroundTransparency = 1
+Desc.TextWrapped = true
+Desc.TextScaled = true
+Desc.TextColor3 = Color3.fromRGB(255, 255, 255)
+Desc.Font = Enum.Font.Gotham
+Desc.Text = "Spectra HUB está off por falta de proteção.\n\nEspere algumas horas para ele voltar."
+
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
