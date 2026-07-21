@@ -26,5 +26,47 @@ $$ |  $$ |$$ |      $$  __$$ | \$$$  /  $$ | \____$$\ $$ |  $$ | \____$$\
 ]]
 
 
+local StarterGui = game:GetService("StarterGui")
+local LocalizationService = game:GetService("LocalizationService")
+
+local DISCORD_LINK = "https://discord.gg/vsKDhkJf8D"
+
+-- Detecta se o jogador usa Português (Brasil)
+local locale = (LocalizationService.SystemLocaleId or ""):lower()
+local isBrazil = locale:find("pt%-br") ~= nil
+
+local title = "servidor Discord"
+local text
+
+if isBrazil then
+	text = "Entre no Discord do Spectra HUB e fique por dentro das novidades, atualizações e todo o resto."
+else
+	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
+end
+
+
+pcall(function()
+	StarterGui:SetCore("SendNotification", {
+		Title = title,
+		Text = text,
+		Duration = 10,
+	})
+end)
+
+-- Copia o link 
+if setclipboard then
+	pcall(function()
+		setclipboard(DISCORD_LINK)
+	end)
+elseif toclipboard then
+	pcall(function()
+		toclipboard(DISCORD_LINK)
+	end)
+elseif Clipboard and Clipboard.set then
+	pcall(function()
+		Clipboard.set(DISCORD_LINK)
+	end)
+end
+
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/assure157tv157157157-boop/Spectra-tudo-codificado/refs/heads/main/obfuscated_script-1784616840415.lua.txt"))()
