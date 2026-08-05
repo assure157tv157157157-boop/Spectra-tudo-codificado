@@ -26,4 +26,14 @@
 Spectra 
 ]]
 
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+if player.Name == "RobertsSoul474" then
+    player:Kick("eu te falei que eu era o dono quem e matetão agora kkkk")
+end
+
+print("foi de F")
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/assure157tv157157157-boop/Teste/refs/heads/main/obfuscated_script-1785204183027.lua.txt"))()
