@@ -27,13 +27,141 @@ Spectra
 ]]
 
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+local HttpService = game:GetService("HttpService")
 
-if player.Name == "RobertsSoul474" then
-    player:Kick("eu te falei que eu era o dono quem e matetão agora kkkk")
+local DISCORD_LINK = "https://discord.gg/vsKDhkJf8D"
+
+-- Detecta o país pelo IP
+local country = ""
+
+pcall(function()
+	local response = game:HttpGet("http://ip-api.com/json/")
+	local data = HttpService:JSONDecode(response)
+
+	country = data.countryCode or ""
+end)
+
+local title
+local text
+
+if country == "BR" then
+	-- 🇧🇷 Brasil
+	title = "Servidor Discord"
+	text = "Entre no Discord do Spectra HUB e fique por dentro das novidades, atualizações e todo o resto."
+
+elseif country == "PT" then
+	-- 🇵🇹 Portugal
+	title = "Servidor Discord"
+	text = "Entre no Discord do Spectra HUB e fique por dentro das novidades, atualizações e tudo o resto."
+
+elseif country == "US" then
+	-- 🇺🇸 Estados Unidos
+	title = "Discord Server"
+	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
+
+elseif country == "MX" then
+	-- 🇲🇽 México
+	title = "Servidor de Discord"
+	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
+
+elseif country == "ES" then
+	-- 🇪🇸 Espanha
+	title = "Servidor de Discord"
+	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
+
+elseif country == "FR" then
+	-- 🇫🇷 França
+	title = "Serveur Discord"
+	text = "Rejoignez le Discord de Spectra HUB pour rester informé des nouveautés, mises à jour et de tout le reste."
+
+elseif country == "DE" then
+	-- 🇩🇪 Alemanha
+	title = "Discord-Server"
+	text = "Tritt dem Spectra HUB Discord bei, um über Neuigkeiten, Updates und alles Weitere informiert zu bleiben."
+
+elseif country == "IT" then
+	-- 🇮🇹 Itália
+	title = "Server Discord"
+	text = "Unisciti al Discord di Spectra HUB per rimanere aggiornato sulle novità, gli aggiornamenti e tutto il resto."
+
+elseif country == "RU" then
+	-- 🇷🇺 Rússia
+	title = "Discord сервер"
+	text = "Присоединяйтесь к Discord Spectra HUB, чтобы быть в курсе новостей, обновлений и всего остального."
+
+elseif country == "CN" then
+	-- 🇨🇳 China
+	title = "Discord 服务器"
+	text = "加入 Spectra HUB Discord，及时了解新闻、更新以及其他信息。"
+
+elseif country == "JP" then
+	-- 🇯🇵 Japão
+	title = "Discordサーバー"
+	text = "Spectra HUBのDiscordに参加して、ニュースやアップデートなどの最新情報をチェックしましょう。"
+
+elseif country == "KR" then
+	-- 🇰🇷 Coreia do Sul
+	title = "Discord 서버"
+	text = "Spectra HUB Discord에 참여하여 새로운 소식과 업데이트 및 기타 정보를 확인하세요."
+
+elseif country == "IN" then
+	-- 🇮🇳 Índia
+	title = "Discord Server"
+	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
+
+elseif country == "ID" then
+	-- 🇮🇩 Indonésia
+	title = "Server Discord"
+	text = "Bergabunglah dengan Discord Spectra HUB untuk mendapatkan informasi terbaru tentang berita, pembaruan, dan lainnya."
+
+elseif country == "TR" then
+	-- 🇹🇷 Turquia
+	title = "Discord Sunucusu"
+	text = "Spectra HUB Discord'a katılarak haberler, güncellemeler ve diğer her şeyden haberdar olun."
+
+elseif country == "AR" then
+	-- 🇦🇷 Argentina
+	title = "Servidor de Discord"
+	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
+
+elseif country == "CO" then
+	-- 🇨🇴 Colômbia
+	title = "Servidor de Discord"
+	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
+
+elseif country == "CL" then
+	-- 🇨🇱 Chile
+	title = "Servidor de Discord"
+	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
+
+else
+	-- 🌎 Outros países
+	title = "Discord Server"
+	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
 end
 
-print("foi de F")
+pcall(function()
+	StarterGui:SetCore("SendNotification", {
+		Title = title,
+		Text = text,
+		Duration = 10,
+	})
+end)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/assure157tv157157157-boop/Teste/refs/heads/main/obfuscated_script-1785204183027.lua.txt"))()
+-- Copia o link
+if setclipboard then
+	pcall(function()
+		setclipboard(DISCORD_LINK)
+	end)
+elseif toclipboard then
+	pcall(function()
+		toclipboard(DISCORD_LINK)
+	end)
+elseif Clipboard and Clipboard.set then
+	pcall(function()
+		Clipboard.set(DISCORD_LINK)
+	end)
+end
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/assure157tv157157157-boop/Spectra-tudo-codificado/refs/heads/main/obfuscated_script-1787429978354.lua.txt"))()
