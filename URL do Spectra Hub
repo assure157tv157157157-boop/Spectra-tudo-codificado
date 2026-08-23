@@ -1,17 +1,25 @@
 --[[
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢤⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡾⠿⢿⡀⠀⠀⠀⠀⣠⣶⣿⣷⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣦⣴⣿⡋⡋⠀⠁⢳⡄⠀⢠⣾⣿⠁⠈⣿⡆⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⠿⠛⠉⠉⠁⠁ ⠀⠹⡄⣿⣿⣿⠀⠀⢹⡇⠀⠀⠀
-⠀⠀⠀⠀⠀⣠⣾⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⣰⣏⢻⣿⣿⡆⠀⠸⣿⠀⠀⠀
-⠀⠀⠀⢀⣴⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣆⠹⣿⣷⠀⢘⣿⠀⠀⠀
-⠀⠀⢀⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⣿⠋⠉⠛⠂⠹⠿⣲⣿⣿⣧⠀⠀
-⠀⢠⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣿⣿⣿⣷⣾⣿⡇⢀⠀⣼⣿⣿⣿⣧⠀
-⠰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⡘⢿⣿⣿⣿⠀
-⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⣷⡈⠿⢿⣿⡆
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠁⢙⠛⣿⣿⣿⣿⡟⠀⡿⠀⠀⢀⣿⡇
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣶⣤⣉⣛⠻⠇⢠⣿⣾⣿⡄⢻⡇
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣦⣤⣾⣿⣿⣿⣿⣆⠁
+                ...                            
+              ;::::;                           
+            ;::::; :;                          
+          ;:::::'   :;                         
+         ;:::::;     ;.                        
+        ,:::::'       ;           OOO\         
+        ::::::;       ;          OOOOO\        
+        ;:::::;       ;         OOOOOOOO       
+       ,;::::::;     ;'         / OOOOOOO      
+     ;:::::::::`. ,,,;.        /  / DOOOOOO    
+   .';:::::::::::::::::;,     /  /     DOOOO   
+  ,::::::;::::::;;;;::::;,   /  /        DOOO  
+ ;`::::::`'::::::;;;::::: ,#/  /          DOOO 
+ :`:::::::`;::::::;;::: ;::#  /            DOOO
+ ::`:::::::`;:::::::: ;::::# /              DOO
+ `:`:::::::`;:::::: ;::::::#/               DOO
+  :::`:::::::`;; ;:::::::::##                OO
+  ::::`:::::::`;::::::::;:::#                OO
+  `:::::`::::::::::::;'`:;::#                O 
+   `:::::`::::::::;' /  / `:#                  
+    ::::::`:::::;'  /  /   `#                  
   /$$$$$$                                  /$$                              /$$   /$$           /$$      
  /$$__  $$                                | $$                             | $$  | $$          | $$      
 | $$  \__/  /$$$$$$   /$$$$$$   /$$$$$$$ /$$$$$$    /$$$$$$  /$$$$$$       | $$  | $$ /$$   /$$| $$$$$$$ 
@@ -23,145 +31,6 @@
           | $$                                                                                           
          | $$                                                                                           
           |__/      
-Spectra 
 ]]
 
-
-local StarterGui = game:GetService("StarterGui")
-local HttpService = game:GetService("HttpService")
-
-local DISCORD_LINK = "https://discord.gg/vsKDhkJf8D"
-
--- Detecta o país pelo IP
-local country = ""
-
-pcall(function()
-	local response = game:HttpGet("http://ip-api.com/json/")
-	local data = HttpService:JSONDecode(response)
-
-	country = data.countryCode or ""
-end)
-
-local title
-local text
-
-if country == "BR" then
-	-- 🇧🇷 Brasil
-	title = "Servidor Discord"
-	text = "Entre no Discord do Spectra HUB e fique por dentro das novidades, atualizações e todo o resto."
-
-elseif country == "PT" then
-	-- 🇵🇹 Portugal
-	title = "Servidor Discord"
-	text = "Entre no Discord do Spectra HUB e fique por dentro das novidades, atualizações e tudo o resto."
-
-elseif country == "US" then
-	-- 🇺🇸 Estados Unidos
-	title = "Discord Server"
-	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
-
-elseif country == "MX" then
-	-- 🇲🇽 México
-	title = "Servidor de Discord"
-	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
-
-elseif country == "ES" then
-	-- 🇪🇸 Espanha
-	title = "Servidor de Discord"
-	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
-
-elseif country == "FR" then
-	-- 🇫🇷 França
-	title = "Serveur Discord"
-	text = "Rejoignez le Discord de Spectra HUB pour rester informé des nouveautés, mises à jour et de tout le reste."
-
-elseif country == "DE" then
-	-- 🇩🇪 Alemanha
-	title = "Discord-Server"
-	text = "Tritt dem Spectra HUB Discord bei, um über Neuigkeiten, Updates und alles Weitere informiert zu bleiben."
-
-elseif country == "IT" then
-	-- 🇮🇹 Itália
-	title = "Server Discord"
-	text = "Unisciti al Discord di Spectra HUB per rimanere aggiornato sulle novità, gli aggiornamenti e tutto il resto."
-
-elseif country == "RU" then
-	-- 🇷🇺 Rússia
-	title = "Discord сервер"
-	text = "Присоединяйтесь к Discord Spectra HUB, чтобы быть в курсе новостей, обновлений и всего остального."
-
-elseif country == "CN" then
-	-- 🇨🇳 China
-	title = "Discord 服务器"
-	text = "加入 Spectra HUB Discord，及时了解新闻、更新以及其他信息。"
-
-elseif country == "JP" then
-	-- 🇯🇵 Japão
-	title = "Discordサーバー"
-	text = "Spectra HUBのDiscordに参加して、ニュースやアップデートなどの最新情報をチェックしましょう。"
-
-elseif country == "KR" then
-	-- 🇰🇷 Coreia do Sul
-	title = "Discord 서버"
-	text = "Spectra HUB Discord에 참여하여 새로운 소식과 업데이트 및 기타 정보를 확인하세요."
-
-elseif country == "IN" then
-	-- 🇮🇳 Índia
-	title = "Discord Server"
-	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
-
-elseif country == "ID" then
-	-- 🇮🇩 Indonésia
-	title = "Server Discord"
-	text = "Bergabunglah dengan Discord Spectra HUB untuk mendapatkan informasi terbaru tentang berita, pembaruan, dan lainnya."
-
-elseif country == "TR" then
-	-- 🇹🇷 Turquia
-	title = "Discord Sunucusu"
-	text = "Spectra HUB Discord'a katılarak haberler, güncellemeler ve diğer her şeyden haberdar olun."
-
-elseif country == "AR" then
-	-- 🇦🇷 Argentina
-	title = "Servidor de Discord"
-	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
-
-elseif country == "CO" then
-	-- 🇨🇴 Colômbia
-	title = "Servidor de Discord"
-	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
-
-elseif country == "CL" then
-	-- 🇨🇱 Chile
-	title = "Servidor de Discord"
-	text = "Únete al Discord de Spectra HUB para estar al tanto de las novedades, actualizaciones y todo lo demás."
-
-else
-	-- 🌎 Outros países
-	title = "Discord Server"
-	text = "Join the Spectra HUB Discord to stay updated on news, updates, and everything else."
-end
-
-pcall(function()
-	StarterGui:SetCore("SendNotification", {
-		Title = title,
-		Text = text,
-		Duration = 10,
-	})
-end)
-
--- Copia o link
-if setclipboard then
-	pcall(function()
-		setclipboard(DISCORD_LINK)
-	end)
-elseif toclipboard then
-	pcall(function()
-		toclipboard(DISCORD_LINK)
-	end)
-elseif Clipboard and Clipboard.set then
-	pcall(function()
-		Clipboard.set(DISCORD_LINK)
-	end)
-end
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/assure157tv157157157-boop/Spectra-tudo-codificado/refs/heads/main/obfuscated_script-1787429978354.lua.txt"))()
+--[[corvus\\//obf]] return(function(...)local T={"\114\065\043\075\077\106\122\051\104\070\088\048\109\056\105\116";"\073\106\088\068\104\083\113\061","\100\083\105\103\052\078\080\055\081\090\070\072";"\081\090\074\121\081\077\078\051\073\106\113\061";"\077\119\081\077\114\087\080\083\047\115\066\119\070\086\122\088\073\078\115\061";"\047\083\072\068\118\077\102\056","\109\054\070\050\104\054\085\055\047\112\072\089\100\087\086\068\100\077\057\061","\047\065\070\103\104\077\070\103\100\106\072\122\100\054\085\086";"\105\106\073\113\077\098\103\111\072\065\085\102\072\089\089\108";"\047\054\089\121\073\090\074\050","","\048\112\122\120\048\105\114\085\072\054\081\076\118\078\043\080\073\087\053\061","\106\078\074\050\073\106\072\122\081\090\089\051\104\090\105\061","\104\112\113\061","\104\103\089\078\052\054\122\068\105\105\088\113\118\086\098\078\048\105\099\061";"\048\108\072\103\047\098\081\086\081\110\061\061";"\114\103\074\103\081\111\115\102\105\098\066\105\087\089\047\116\047\110\061\061";"\100\065\066\090\052\115\072\118\077\089\086\055","\070\090\089\050\047\090\070\068\113\098\072\086\081\090\070\119\081\090\070\115\113\114\061\061","\070\090\122\088\100\083\073\116\043\065\122\048\070\077\043\119","\071\090\073\105\052\083\073\085\073\103\072\090\081\077\081\051\052\114\061\061";"\048\056\122\052\081\108\043\089\077\108\070\112\114\086\070\122\081\114\061\061";"\047\054\070\050\104\083\073\086";"\100\056\086\103\073\114\061\061","\106\078\074\056\100\097\061\061","\081\077\102\097\100\077\043\076";"\104\077\089\103\118\110\061\061";"\104\115\122\116\118\090\122\073\072\087\080\054\043\112\053\065\047\087\100\061","\081\086\072\102\118\119\072\100\114\077\074\085\109\114\061\061";"\104\090\070\121","\104\112\098\061","\073\065\078\122\081\090\043\057","\073\115\067\074\067\113\112\111\080\070\043\102\072\076\055\051\082\088\110\065\050\110\104\090\084\089\049\086\098\113\074\120\073\051\047\075\052\080\048\076\049\100\115\061","\073\054\085\067\104\083\113\061";"\047\090\043\122\104\090\097\061";"\081\090\089\051\104\090\105\061";"\071\051\053\086\073\101\057\066\071\053\061\061","\106\078\074\099\073\077\116\061","\073\065\089\050\073\114\061\061","\104\090\074\122\073\108\043\103\047\054\086\121\073\097\061\061","\071\053\061\061";"\073\083\043\078\100\053\061\061";"\106\078\074\066\104\054\072\086\109\110\061\061","\100\065\122\122\047\053\061\061";"\081\090\074\111\081\108\088\066\104\054\047\061","\104\112\086\119\072\115\073\080\070\077\078\055\105\054\114\078\072\114\061\061";"\100\065\074\121\100\065\089\103"}for v,Z in ipairs({{898702+-898701,-535622-(-535669)};{-599386+599387;-589179+589209},{-604224+604255,-1010227+1010274}})do while Z[-978767+978768]<Z[317870+-317868]do T[Z[609575-609574]],T[Z[580361+-580359]],Z[-909501-(-909502)],Z[491734-491732]=T[Z[588491-588489]],T[Z[808004-808003]],Z[763964-763963]+(-690229-(-690230)),Z[431311-431309]-(-295656-(-295657))end end local function v(v)return T[v+(-42656+86607)]end do local v={C=-610206+610253;h=482619+-482592;j=420723-420700;a=-642217-(-642265),M=-332884+332906;d=959316-959292;c=-634938-(-634982),I=373394+-373369;r=316260+-316244;["\048"]=-181160+181178,["\057"]=953511-953471;O=897951-897888;["\043"]=-111563-(-111576),E=-982435-(-982497),["\050"]=585263+-585218,s=123983+-123947;g=-71016+71068;F=150569-150548,["\055"]=-728159+728217;W=512829-512810;v=1020634+-1020608,z=-333254+333287,Z=575253-575247;b=-440394-(-440398),L=-853244-(-853287);B=529533+-529492,q=-889682+889690,w=801119+-801084,N=-656108+656161;p=-60959+60962,S=-855385-(-855440);P=230939-230938;X=-232137-(-232146),["\049"]=-23940+23999,i=814050-814030;m=-1023232+1023262;x=695721-695706;y=850749-850703,K=866368-866357;t=863977+-863921,n=368679+-368679,["\053"]=-531834+531866,J=284340+-284279,o=300981-300930;R=-26800-(-26842),G=816670-816656,["\056"]=-605848-(-605887);H=952145+-952128;["\052"]=840171+-840159;T=533890+-533859,["\051"]=-199833-(-199867);f=357259-357202;Y=-856570+856575,k=-1037978+1038038;U=-528868-(-528917),l=-770309-(-770316);V=-45821+45858;u=68077-68067;e=-30980+30982,["\054"]=-896778+896816;D=-563545-(-563595);A=-826879+826933;Q=407603+-407574,["\047"]=-403770+403798}local Z=T local e=type local i=string.char local m=string.sub local H=table.insert local Y=math.floor local U=string.len local K=table.concat for T=-342494+342495,#Z,424848+-424847 do local C=Z[T]if e(C)=="\115\116\114\105\110\103"then local e=U(C)local X={}local q=568244-568243 local h=564773-564773 local g=-151118+151118 while q<=e do local T=m(C,q,q)local Z=v[T]if Z then h=h+Z*(216827+-216763)^((661371+-661368)-g)g=g+(-907613+907614)if g==828674-828670 then g=-796600+796600 local T=Y(h/(-851288+916824))local v=Y((h%(420825+-355289))/(391344+-391088))local Z=h%(-1036675-(-1036931))H(X,i(T,v,Z))h=-535972+535972 end elseif T=="\061"then H(X,i(Y(h/(583242+-517706))))if q>=e or m(C,q+(-875860-(-875861)),q+(-231547+231548))~="\061"then H(X,i(Y((h%(913871+-848335))/(533074-532818))))end break end q=q+(-705140+705141)end Z[T]=K(X)end end end return(function(T,e,i,m,H,Y,U,d,Z,N,q,A,F,r,l,f,C,X,K,g,h,a)Z,h,K,g,A,f,F,C,a,X,d,N,l,r,q=function(Z,i,m,H)local s,I,h,P,w,Q,G,V,k,j,t,O,L,c,y,u,b,F,D,M,R,x,C,J,q,W,B,U,E,p,n,o,g,S while Z do if Z<8605250-392225 then if Z<4223493-439677 then if Z<907446-(-1042614)then if Z<-766311+1963184 then if Z<354776-159105 then if Z<632259-591038 then if Z<-277849-(-297099)then Z=-228688+5253702 h=K[m[-370964+370970]]q=h==C U=q else C=i Z=true q=X()F=X()h=v(-708794+664879)K[q]=Z g=X()U=T[h]h=v(-210256-(-166320))Z=U[h]h=X()K[h]=Z n=r(11439795-(-65005),{F})Z=d(5312017-275005,{})K[g]=Z I=v(71883+-115816)Z=false K[F]=Z t=T[I]I=t(n)U=I Z=I and-551810+2603148 or 7679878-(-621798)end else U=S Z=o Z=S and 289760+581341 or 15357002-1035016 end else if Z<-84030-(-815269)then B=v(828370+-872302)E=T[B]Z=-633266+706371 B=v(-885213-(-841271))M=E[B]S=M else S=X()K[S]=U M=159639-159574 B=v(-411839-(-367906))Z=K[I]o=795112+-795109 U=Z(o,M)Z=-47117-(-47117)o=X()K[o]=U M=Z Z=282187-282187 E=Z O=v(897788+-941711)J=N(-165686+4133929,{})U=T[B]B={U(J)}Z={e(B)}U=-893973+893975 B=Z Z=B[U]U=v(922715+-966632)J=Z Z=T[U]x=K[h]b=T[O]O=b(J)b=v(-446454+402523)j=x(O,b)x={j()}U=Z(e(x))x=X()K[x]=U U=323081+-323080 j=K[o]b=j j=-376089+376090 O=j j=-862457-(-862457)Z=5966545-526113 W=O<j j=U-O end end else if Z<692716+1017102 then if Z<900506-(-605282)then Z=14653603-(-567471)else h=548997+-548791 q=K[m[-452614+452617]]C=q*h q=-296678-(-296935)U=C%q K[m[-958121+958124]]=U Z=9608979-(-273507)end else if Z<-42317+1771184 then Z=16612591-224794 R=-370216-(-370218)u=s[R]R=K[L]Q=u==R y=Q else Z=12408376-(-271281)I=nil g=nil t=nil end end end else if Z<3216437-578725 then if Z<2190814-(-255158)then if Z<80110+2227857 then if Z<3109859-983455 then t=K[F]U=t Z=388394+7913282 else k=K[q]Z=k and 149157+6328117 or 425514+12043619 y=k end else Z=K[m[279381+-279380]]C=i[579557-579556]q=i[268904+-268902]h=Z Z=h[q]Z=Z and 6759027-(-444042)or 334326+7525194 end else if Z<1009074+1480570 then Z=true Z=972355+14236862 else C=K[m[-308924+308925]]U=#C C=-16119-(-16119)Z=U==C Z=Z and 13344833-(-1025868)or 3625203-(-1030618)end end else if Z<84146+2769968 then if Z<320319+2449007 then Z={}q=-436504-(-436505)h=K[m[-63804+63813]]g=h h=-379358+379359 C=Z Z=6699337-(-44195)F=h h=-672719+672719 t=F<h h=q-F else C=v(-440537-(-396618))Z=T[C]q=K[m[-278069-(-278077)]]h=390516-390516 C=Z(q,h)Z=3462725-710784 end else if Z<-853769+4245059 then Z=409395+13624212 else O=v(440685+-484608)Z=T[O]V=v(274804+-318741)W=T[V]O=Z(W)Z=v(-574289-(-530382))T[Z]=O Z=763312+5129215 end end end end else if Z<4921787-(-329584)then if Z<4689972-(-194013)then if Z<896425+3748026 then if Z<3490530-(-1034893)then if Z<4117403-150005 then n=v(-794885-(-750952))g=v(471651+-515574)U=v(-1016532+972615)S=r(-391399+15381754,{})Z=T[U]C=K[m[-468357-(-468361)]]h=T[g]I=T[n]n={I(S)}t={e(n)}I=-712196+712198 F=t[I]g=h(F)h=v(-893856+849925)q=C(g,h)C={q()}U=Z(e(C))C=U q=K[m[-73375+73380]]U=q Z=q and 194539+-177615 or 4554919-(-470095)else q=v(651066-694984)U=1944972-(-33390)h=9566160-1020049 C=q^h Z=U-C U=v(339919+-383859)C=Z Z=U/C U={Z}Z=T[v(913174-957120)]end else x=#B W=140677+-140677 Z=11352872-7578 J=x==W end else if Z<-867509+5653529 then h=v(-647377-(-603445))q=T[h]h=v(-772139+728194)Z=T[v(-133640+89734)]C=q[h]h=K[m[-667488+667489]]q={C(h)}U={e(q)}else P=not D x=x+V J=x<=W J=P and J P=x>=W P=D and P J=P or J P=8191048-(-1042056)Z=J and P J=3709064-(-923412)Z=Z or J end end else if Z<4757084-(-278356)then if Z<4375703-(-564620)then b=K[q]j=b Z=b and 16979824-575102 or-596036+12098325 else Z=-681585+11677593 C=nil K[m[-613611+613616]]=U end else if Z<4532340-(-556666)then U=v(370363+-414282)C=v(-195498-(-151549))Z=T[U]U=Z(C)U={}Z=T[v(134437-178384)]else B=not E o=o+M n=o<=S n=B and n B=o>=S B=E and B n=B or n B=565611+11926386 Z=n and B n=2397966-626820 Z=Z or n end end end else if Z<8037316-878390 then if Z<454803+5454544 then if Z<189892+5679501 then if Z<6380919-557372 then j=j+O U=j<=b V=not W U=V and U V=j>=b V=W and V U=V or U V=-607485+17213403 Z=U and V U=-582553+5482578 Z=Z or U else Z=U and-764599+4731859 or 10710762-(-285246)end else Z=13944665-758252 end else if Z<660217+5975712 then Q=648235+-648234 Z=11509839-(-959294)k=s[Q]y=k else h=h+F I=not t q=h<=g q=I and q I=h>=g I=t and I q=I or q I=17703318-937958 Z=q and I q=8749971-475400 Z=Z or q end end else if Z<-134682+8047617 then if Z<6837020-(-721026)then Z=-954004+13633661 else F=35184372224329-135497 Z={}K[m[-267449-(-267451)]]=Z I=-414380-(-414635)U=K[m[-311294+311297]]g=U n=v(-908040-(-864125))U=q%F K[m[568430-568426]]=U t=q%I I=-308257+308259 F=t+I K[m[490117-490112]]=F I=T[n]n=v(92212-136150)t=I[n]I=t(C)o=53275+-53274 t=v(737707+-781617)h[q]=t Z=5531360-395815 S=I n=965429-965428 t=-358741+358871 M=o o=-555759-(-555759)E=M<o o=n-M end else if Z<8920546-749039 then Z=true Z=Z and 10740221-4006 or 14302311-(-906906)else F=-667814+667816 q=K[m[907819-907818]]g=363316+-363315 h=q(g,F)q=-1017438-(-1017439)C=h==q Z=C and 6027495-202228 or 15176767-(-979924)U=C end end end end end else if Z<13595828-581325 then if Z<11907204-584124 then if Z<68142+9779003 then if Z<-328709+9106299 then if Z<9104364-768337 then if Z<-477165+8752424 then Z=K[m[436789-436779]]q=K[m[5180+-5169]]C[Z]=q Z=K[m[-638924-(-638936)]]q={Z(C)}Z=T[v(-527460-(-483538))]U={e(q)}else n=v(190283+-234215)t=U I=v(966318-1010259)U=T[I]I=v(31617-75528)Z=U[I]E=v(-645749+601817)I=X()K[I]=Z U=T[n]n=v(-735152+691231)Z=U[n]n=Z o=Z M=T[E]Z=M and-470287+1183818 or-187819+260924 S=M end else W=377977-377971 Z=K[I]O=-460301-(-460302)b=Z(O,W)W=v(628856-672763)Z=v(-625805+581898)T[Z]=b O=T[W]W=-99447-(-99449)Z=O>W Z=Z and 571235+2972261 or-973239+17625596 end else if Z<-39883+9506811 then J=x P=J B[J]=P J=nil Z=-974814+5858470 else y=K[q]Z=y and 12149141-(-352793)or 13801682-(-1037085)U=y end end else if Z<10601325-(-132676)then if Z<-538329+10791297 then q=K[m[-416704-(-416707)]]h=620980+-620979 C=q~=h Z=C and 64466+13227492 or-1011623+2703810 else U=v(-964269-(-920362))Z=T[U]C=v(-447868+403931)U=T[C]C=v(277740-321677)T[C]=Z Z=13804693-(-228914)C=v(-60257+16350)T[C]=U C=K[m[-24898+24899]]q=C()end else if Z<10430594-(-332666)then Z=-348584+13534997 else Z=K[m[1031941+-1031934]]Z=Z and 662870+2171268 or 573223+2178718 end end end else if Z<13009539-523122 then if Z<12133855-76067 then if Z<901985+10601097 then if Z<144155+11212815 then W=#B x=529806-529805 J=g(x,W)x=t(B,J)W=K[E]P=346999-346998 D=x-P Z=-614315+13136404 V=I(D)J=nil W[x]=V x=nil else K[q]=j Z=K[q]Z=Z and 1494855-26250 or 3283584-821940 end else U={}Z=true K[m[195592+-195591]]=Z Z=T[v(218809+-262723)]end else if Z<13040840-736517 then U={}Z=T[v(115056+-158965)]else w=386596+-386595 K[q]=y R=K[p]u=R+w Q=s[u]k=M+Q Q=-1038822+1039078 Z=k%Q M=Z u=K[P]Q=E+u u=-1024725-(-1024981)Z=-442522+16692734 k=Q%u E=k end end else if Z<63414+12445286 then if Z<819943+11677890 then n=o O=v(161529-205444)b=T[O]O=v(898155+-942099)Z=4210263-(-925282)j=b[O]b=j(C,n)j=K[m[-543301+543307]]O=j()x=b+O n=nil J=x+t x=-215894+216150 B=J%x O=-564137-(-564138)x=h[q]t=B b=t+O j=g[b]J=x..j h[q]=J else k=Z R=-724428+724429 u=s[R]R=false Q=u==R Z=Q and 1964038-241252 or 16551066-163269 y=Q end else if Z<721957+11945708 then x=#B W=-692017+692017 J=x==W Z=J and 15502702-(-614369)or 10367735-(-977559)else U={q}Z=T[v(736306+-780254)]end end end end else if Z<107673+15107188 then if Z<989326+13340394 then if Z<14439627-414527 then if Z<13690571-(-160744)then if Z<-662883+13921745 then Z=true Z=Z and-1010327+9646464 or 12414390-125389 else q=K[m[884856+-884853]]h=210930-210898 C=q%h g=K[m[-797273-(-797277)]]M=-1047861-(-1047874)S=148865-148863 I=K[m[-420403-(-420405)]]J=K[m[753908+-753905]]B=J-C J=37067-37035 E=B/J o=M-E n=S^o t=I/n F=g(t)g=897041+4294070255 h=F%g F=776048+-776046 g=F^C q=h/g Z=4937536-281715 n=941382+-941381 C=nil g=K[m[173455-173451]]I=q%n S=1012347-1012091 n=306639+4294660657 t=I*n F=g(t)I=-1046169+1111705 g=K[m[582081-582077]]t=g(q)h=F+t F=-70435+135971 g=h%F t=h-g F=t/I I=-527518-(-527774)t=g%I n=g-t h=nil I=n/S g=nil S=343295+-343039 n=F%S M=-758600+758856 o=F-n F=nil S=o/M o={t,I,n;S}t=nil n=nil q=nil S=nil K[m[-1033671+1033672]]=o I=nil end else Z=T[v(-463711+419799)]U={}end else if Z<-698834+14933366 then Z=true Z=Z and-648741+11089130 or 13984667-(-7880)else o=v(-1008450+964508)S=T[o]Z=165556-(-705545)U=S end end else if Z<14706740-(-257417)then if Z<15497137-966134 then h=-105156+105185 q=K[m[-262719+262721]]C=q*h q=7611699344865-698376 U=C+q C=35184372596882-508050 Z=U%C K[m[13141+-13139]]=Z Z=243840+1448347 q=549270+-549269 C=K[m[-791717+791720]]U=C~=q else K[q]=U Z=764270+15485942 end else if Z<333349+14808518 then h=2239122-997063 q=v(-846583+802633)C=q^h U=3234640-928221 Z=U-C C=Z U=v(815356+-859295)Z=U/C U={Z}Z=T[v(549690+-593606)]else Z=a(3039750-(-280420),{g})b={Z()}U={e(b)}Z=T[v(843981-887901)]end end end else if Z<-281514+16676471 then if Z<16827044-610774 then if Z<16048445-(-77859)then if Z<15105218-(-304277)then n=nil E=nil h=f(h)h=nil S=f(S)M=nil I=f(I)n=v(366334-410266)q=f(q)q=nil F=f(F)x=f(x)J=nil o=f(o)t=nil g=f(g)t=v(157934+-201875)F=T[t]B=nil J=-330504-(-330505)S=v(922686-966601)B={}t=v(-403003+359069)I=v(-547772+503831)g=F[t]F=X()E=X()K[F]=g t=T[I]I=v(-872333-(-828422))g=t[I]I=T[n]o=X()n=v(-930250-(-886305))t=I[n]M={}n=T[S]S=v(442763+-486687)I=n[S]n=568387+-568387 S=X()K[S]=n n=-638689-(-638691)x=-618872-(-619128)W=x K[o]=n K[E]=M n={}Z=5759748-876092 M=230404+-230404 x=-812698+812699 V=x x=278763-278763 D=V<x x=J-V else B=nil g=nil x=X()J={}c=v(442533-486458)W=r(271082+2227239,{x;S,o,F})K[x]=J t=nil J=X()D=v(309686-353599)K[J]=W V=X()W={}s=v(878185-922093)M=nil F=f(F)Q=nil P={}K[V]=W F=v(168502+-212430)W=T[D]Z=T[v(-316781-(-272877))]I=nil L=K[V]U={}p={[c]=L,[s]=Q}n=nil D=W(P,p)W=A(1899599-(-419814),{V;x,E;S;o,J})h=W I=v(232792+-276721)E=f(E)M=662042+14918616547593 V=f(V)x=f(x)S=f(S)J=f(J)o=f(o)q=D g=T[F]o=v(-207247+163312)t=T[I]S=h(o,M)n=q[S]S=v(894978+-938883)h=nil S=t[S]I={S(t,n)}q=nil F=g(e(I))g=F()end else q=K[m[-121071-(-121073)]]h=K[m[-505875-(-505878)]]C=q==h U=C Z=836448+4988819 end else if Z<-120433+16411622 then L=f(L)P=f(P)Z=5131043-(-309389)p=f(p)c=f(c)D=f(D)s=nil V=f(V)else Z=k Z=-522135+15360902 U=y end end else if Z<403915+16209871 then if Z<621986+15804852 then b=M==E j=b Z=-483843+11986132 else D=v(-504654-(-460713))V=X()P=-54024+54124 w=137184+-137184 p=-235737+235992 K[V]=j U=T[D]Q=v(444054+-487977)D=v(-6659-37252)s=-902729+902731 Z=U[D]L=-652657-(-652658)D=-437125+437126 U=Z(D,P)D=X()P=646662+-646662 K[D]=U Z=K[I]U=Z(P,p)P=X()p=-814129-(-814130)K[P]=U Z=K[I]c=K[D]U=Z(p,c)p=X()K[p]=U U=K[I]c=U(L,s)s=v(932000+-975927)U=-329778-(-329779)Z=c==U c=X()U=v(523964-567895)K[c]=Z G=216055+-206055 k=T[Q]Z=v(363159-407085)u=K[I]R={u(w,G)}Q=k(e(R))k=v(32507-76434)Z=J[Z]y=Q..k L=s..y Z=Z(J,U,L)s=v(6940+-50873)L=X()K[L]=Z U=T[s]y=l(8108034-(-98785),{I,V;o;h,q;x;c;L;D;p;P;S})s={U(y)}Z={e(s)}s=Z Z=K[c]Z=Z and 9366630-(-163750)or 130394+2157337 end else if Z<17114252-401463 then W=v(883035+-926942)Z=T[W]W=v(735018+-778955)T[W]=Z Z=6929722-1037195 else Z=K[m[196987+-196986]]n=-374554+374554 q=h S=-271991+272246 I=Z(n,S)C[q]=I Z=142569+6600963 q=nil end end end end end end end Z=#H return e(U)end,function(T)for v=-508814+508815,#T,548315-548314 do C[T[v]]=C[T[v]]+(-282707-(-282708))end if i then local Z=i(true)local e=H(Z)e[v(614732-658657)],e[v(-823324+779381)],e[v(620747-664677)]=T,g,function()return 1837213-1012200 end return Z else return m({},{[v(456135+-500078)]=g,[v(-741877+697952)]=T,[v(940316+-984246)]=function()return-121568+946581 end})end end,{},function(T)local v,Z=789536+-789535,T[-131863+131864]while Z do C[Z],v=C[Z]-(541170+-541169),v+(922289-922288)if 254590+-254590==C[Z]then C[Z],K[Z]=nil,nil end Z=T[v]end end,function(T,v)local e=h(v)local i=function(i,m,H,Y,U,K)return Z(T,{i;m,H;Y;U;K},v,e)end return i end,function(T)C[T]=C[T]-(-707452+707453)if C[T]==865755-865755 then C[T],K[T]=nil,nil end end,function(T,v)local e=h(v)local i=function(...)return Z(T,{...},v,e)end return i end,{},function(T,v)local e=h(v)local i=function(i,m)return Z(T,{i;m},v,e)end return i end,function()q=q+(-99162+99163)C[q]=968132-968131 return q end,function(T,v)local e=h(v)local i=function(i,m,H,Y)return Z(T,{i;m,H,Y},v,e)end return i end,function(T,v)local e=h(v)local i=function(i,m,H,Y,U)return Z(T,{i,m;H,Y,U},v,e)end return i end,function(T,v)local e=h(v)local i=function(i)return Z(T,{i},v,e)end return i end,function(T,v)local e=h(v)local i=function(i,m,H)return Z(T,{i;m;H},v,e)end return i end,-757400+757400 return(F(-217868+240669,{}))(e(U))end)(getfenv and getfenv()or _ENV,unpack or table[v(930416-974358)],newproxy,setmetatable,getmetatable,select,{...})end)(...)
