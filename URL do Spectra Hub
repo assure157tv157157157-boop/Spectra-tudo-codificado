@@ -31,9 +31,8 @@ Spectra
 local StarterGui = game:GetService("StarterGui")
 local HttpService = game:GetService("HttpService")
 
-local DISCORD_LINK = "https://discord.gg/vsKDhkJf8D"
+local DISCORD_LINK = "https://discord.gg/XdXtycUyhd"
 
--- Detecta o país pelo IP
 local country = ""
 
 pcall(function()
@@ -150,7 +149,6 @@ pcall(function()
 	})
 end)
 
--- Copia o link
 if setclipboard then
 	pcall(function()
 		setclipboard(DISCORD_LINK)
