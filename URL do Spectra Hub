@@ -162,3 +162,223 @@ elseif Clipboard and Clipboard.set then
 		Clipboard.set(DISCORD_LINK)
 	end)
 end
+
+
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "SpectraOff"
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local tweenService = game:GetService("TweenService")
+
+local function createUI()
+    local shadow = Instance.new("Frame")
+    shadow.Size = UDim2.new(0, 460, 0, 280)
+    shadow.Position = UDim2.new(0.5, -230, 0.5, -140)
+    shadow.BackgroundColor3 = Color3.new(0, 0, 0)
+    shadow.BackgroundTransparency = 0.6
+    shadow.BorderSizePixel = 0
+    shadow.Parent = gui
+    local shadowCorner = Instance.new("UICorner")
+    shadowCorner.CornerRadius = UDim.new(0, 16)
+    shadowCorner.Parent = shadow
+
+    local main = Instance.new("Frame")
+    main.Size = UDim2.new(0, 450, 0, 270)
+    main.Position = UDim2.new(0.5, -225, 0.5, -135)
+    main.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    main.BackgroundTransparency = 0.25
+    main.BorderSizePixel = 0
+    main.Parent = gui
+    local mainCorner = Instance.new("UICorner")
+    mainCorner.CornerRadius = UDim.new(0, 16)
+    mainCorner.Parent = main
+
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = 2
+    stroke.Color = Color3.new(0, 0, 0)
+    stroke.Transparency = 0.35
+    stroke.Parent = main
+
+    local topBar = Instance.new("Frame")
+    topBar.Size = UDim2.new(1, 0, 0, 44)
+    topBar.BackgroundColor3 = Color3.fromRGB(130, 25, 25)
+    topBar.BackgroundTransparency = 0.1
+    topBar.BorderSizePixel = 0
+    topBar.Parent = main
+    local topCorner = Instance.new("UICorner")
+    topCorner.CornerRadius = UDim.new(0, 16)
+    topCorner.Parent = topBar
+
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(130, 25, 25)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(20, 20, 20)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(130, 25, 25))
+    })
+    gradient.Rotation = 0
+    gradient.Parent = topBar
+
+    local titleContainer = Instance.new("Frame")
+    titleContainer.Size = UDim2.new(1, -50, 1, 0)
+    titleContainer.Position = UDim2.new(0, 15, 0, 0)
+    titleContainer.BackgroundTransparency = 1
+    titleContainer.Parent = topBar
+
+    local icon = Instance.new("ImageLabel")
+    icon.Size = UDim2.new(0, 36, 0, 36)
+    icon.Position = UDim2.new(0, 0, 0.5, -18)
+    icon.BackgroundTransparency = 1
+    icon.Image = "rbxassetid://78998764218409"
+    icon.Parent = titleContainer
+
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1, -35, 1, 0)
+    title.Position = UDim2.new(0, 35, 0, 0)
+    title.BackgroundTransparency = 1
+    title.Text = "Spectra off"
+    title.TextColor3 = Color3.new(1, 1, 1)
+    title.TextSize = 22
+    title.Font = Enum.Font.GothamBold
+    title.TextXAlignment = Enum.TextXAlignment.Left
+    title.TextYAlignment = Enum.TextYAlignment.Center
+    title.Parent = titleContainer
+
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Size = UDim2.new(0, 38, 1, -8)
+    closeBtn.Position = UDim2.new(1, -42, 0, 4)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(130, 25, 25)
+    closeBtn.BackgroundTransparency = 0.2
+    closeBtn.Text = "X"
+    closeBtn.TextColor3 = Color3.new(1, 1, 1)
+    closeBtn.TextSize = 24
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.Parent = topBar
+    local btnCorner = Instance.new("UICorner")
+    btnCorner.CornerRadius = UDim.new(0, 8)
+    btnCorner.Parent = closeBtn
+
+    local descContainer = Instance.new("ScrollingFrame")
+    descContainer.Size = UDim2.new(1, -30, 1, -65)
+    descContainer.Position = UDim2.new(0, 15, 0, 52)
+    descContainer.BackgroundTransparency = 1
+    descContainer.BorderSizePixel = 0
+    descContainer.ScrollBarThickness = 6
+    descContainer.ScrollBarImageColor3 = Color3.fromRGB(180, 30, 30)
+    descContainer.ScrollBarImageTransparency = 0.3
+    descContainer.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+    descContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
+    descContainer.Parent = main
+
+    local descText = Instance.new("TextLabel")
+    descText.Size = UDim2.new(1, -10, 0, 0)
+    descText.Position = UDim2.new(0, 0, 0, 0)
+    descText.BackgroundTransparency = 1
+    descText.Text = [[
+
+🇧🇷
+Estaremos OFF até sábado. No sábado, iremos realizar uma atualização.
+Entre no nosso Discord para ficar por dentro de todas as novidades e saber mais sobre a atualização.
+
+🇺🇸
+We will be OFF until Saturday. On Saturday, we will be releasing an update.
+Join our Discord to stay up to date with all the latest news and learn more about the update.
+]]
+    descText.TextColor3 = Color3.new(1, 1, 1)
+    descText.TextSize = 16
+    descText.Font = Enum.Font.Gotham
+    descText.TextWrapped = true
+    descText.TextXAlignment = Enum.TextXAlignment.Left
+    descText.TextYAlignment = Enum.TextYAlignment.Top
+    descText.Parent = descContainer
+
+    local function criarSeta()
+        local old = descContainer:FindFirstChild("ScrollIndicator")
+        if old then old:Destroy() end
+
+        local ind = Instance.new("ImageLabel")
+        ind.Name = "ScrollIndicator"
+        ind.Size = UDim2.new(0, 41, 0, 41)
+        ind.Position = UDim2.new(1, -45, 1, -40)
+        ind.BackgroundTransparency = 1
+        ind.Image = "rbxassetid://114360729045649"
+        ind.ImageColor3 = Color3.fromRGB(200, 50, 50)
+        ind.ImageTransparency = 0.6
+        ind.Parent = descContainer
+        tweenService:Create(ind, TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {ImageTransparency = 0.2}):Play()
+    end
+
+    local function updateCanvas()
+        local textBounds = descText.TextBounds
+        local textHeight = textBounds.Y + 20
+        descText.Size = UDim2.new(1, -10, 0, textHeight)
+        descContainer.CanvasSize = UDim2.new(0, 0, 0, textHeight)
+        criarSeta()
+    end
+
+    game:GetService("RunService").Heartbeat:Wait()
+    updateCanvas()
+    descContainer:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateCanvas)
+
+    main.BackgroundTransparency = 1
+    shadow.BackgroundTransparency = 1
+    topBar.BackgroundTransparency = 1
+    closeBtn.BackgroundTransparency = 1
+    descText.TextTransparency = 1
+    title.TextTransparency = 1
+    icon.ImageTransparency = 1
+
+    main.Size = UDim2.new(0, 300, 0, 180)
+    shadow.Size = UDim2.new(0, 310, 0, 190)
+    main.Position = UDim2.new(0.5, -150, 0.5, -90)
+    shadow.Position = UDim2.new(0.5, -155, 0.5, -95)
+
+    local fadeIn = TweenInfo.new(0.7, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local scaleIn = TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0.3)
+
+    tweenService:Create(main, fadeIn, {BackgroundTransparency = 0.25}):Play()
+    tweenService:Create(shadow, fadeIn, {BackgroundTransparency = 0.6}):Play()
+    tweenService:Create(topBar, fadeIn, {BackgroundTransparency = 0.1}):Play()
+    tweenService:Create(closeBtn, fadeIn, {BackgroundTransparency = 0.2}):Play()
+    tweenService:Create(descText, fadeIn, {TextTransparency = 0}):Play()
+    tweenService:Create(title, fadeIn, {TextTransparency = 0}):Play()
+    tweenService:Create(icon, fadeIn, {ImageTransparency = 0}):Play()
+
+    tweenService:Create(main, scaleIn, {
+        Size = UDim2.new(0, 450, 0, 270),
+        Position = UDim2.new(0.5, -225, 0.5, -135)
+    }):Play()
+    tweenService:Create(shadow, scaleIn, {
+        Size = UDim2.new(0, 460, 0, 280),
+        Position = UDim2.new(0.5, -230, 0.5, -140)
+    }):Play()
+
+    local function destroyUI()
+        local fadeOut = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+        local scaleOut = TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.In, 0.2)
+
+        tweenService:Create(main, fadeOut, {BackgroundTransparency = 1}):Play()
+        tweenService:Create(shadow, fadeOut, {BackgroundTransparency = 1}):Play()
+        tweenService:Create(topBar, fadeOut, {BackgroundTransparency = 1}):Play()
+        tweenService:Create(closeBtn, fadeOut, {BackgroundTransparency = 1}):Play()
+        tweenService:Create(descText, fadeOut, {TextTransparency = 1}):Play()
+        tweenService:Create(title, fadeOut, {TextTransparency = 1}):Play()
+        tweenService:Create(icon, fadeOut, {ImageTransparency = 1}):Play()
+
+        tweenService:Create(main, scaleOut, {
+            Size = UDim2.new(0, 200, 0, 120),
+            Position = UDim2.new(0.5, -100, 0.5, -60)
+        }):Play()
+        tweenService:Create(shadow, scaleOut, {
+            Size = UDim2.new(0, 210, 0, 130),
+            Position = UDim2.new(0.5, -105, 0.5, -65)
+        }):Play()
+
+        wait(0.6)
+        gui:Destroy()
+    end
+
+    closeBtn.MouseButton1Click:Connect(destroyUI)
+end
+
+createUI()
