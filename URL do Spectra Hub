@@ -277,14 +277,12 @@ local function createUI()
     descText.Text = [[
 
 🇧🇷
-Estaremos OFF até sábado. No sábado, iremos realizar uma atualização.
-Entre no nosso Discord para ficar por dentro de todas as novidades e saber mais sobre a atualização.
+Spectra OFF até amanhã. Era pra ser hoje, mas aconteceu um imprevisto. Desculpa aí, rapaziada, mas prometo que amanhã o Spectra tá ON, lá pras 10 da manhã. Tá pronto.
 
 Você copiou o Discord do Spectra ao executar o script basta só entra no Discord se tiver um conta bota o convite lá e se não tiver crie uma 
 
 🇺🇸
-We will be OFF until Saturday. On Saturday, we will be releasing an update.
-Join our Discord to stay up to date with all the latest news and learn more about the update.
+Spectra OFF until tomorrow. It was supposed to be today, but something came up. Sorry about that, guys, but I promise Spectra will be ON tomorrow, around 10 AM. It’s ready.
 
 You copied Spectra’s Discord. When you execute the script, you just need to join the Discord. If you already have an account, enter the invite link there; if you don’t have an account, create one first.
 ]]
