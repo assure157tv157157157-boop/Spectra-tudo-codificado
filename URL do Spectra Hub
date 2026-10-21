@@ -1,3 +1,43 @@
+local StarterGui = game:GetService("StarterGui")
+local Discord = "https://discord.gg/hk73Zwxx5N"
+
+local function Notify()
+    pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title = "Spectra",
+            Text = "Copy Discord Spectra",
+            Duration = 10,
+            Button1 = "Copy Discord Spectra",
+            Callback = function()
+                if setclipboard then
+                    setclipboard(Discord)
+                end
+            end
+        })
+    end)
+end
+
+task.spawn(function()
+    repeat
+        task.wait(1)
+    until pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title = "Spectra",
+            Text = "Copy Discord Spectra",
+            Duration = 10,
+            Button1 = "Copy Discord Spectra"
+        })
+    end)
+
+    Notify()
+end)
+
+
+
+
+
+
+
 -- 烏CORVUS烏 | V14.5
 return (function(...)
     local function __12_lSO0ll(s, k1, k2)
